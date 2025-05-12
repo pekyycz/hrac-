@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-void vypisClassu(int cislo) {
+void vypisClassu(int cislo, int zivoty, int maxzivoty) {
     switch (cislo) {
         case 1:
-            cout << "Class: Paladin\n";
-            cout << "Zivoty: 5/5\n";
+            cout << "Class: Fighter\n";
+            cout << "Zivoty: " << zivoty << "/" << maxzivoty <<endl;
             cout << "Mana: 5/5\n";
             cout << "Utok: 3\n";
             cout << "Schopnosti:\n";
@@ -14,8 +14,8 @@ void vypisClassu(int cislo) {
             cout << "- Oziveni: +1 zivot (1 mana)\n";
             break;
         case 2:
-            cout << "Class: Lovec\n";
-            cout << "Zivoty: 4/4\n";
+            cout << "Class: Marksman\n";
+            cout << "Zivoty: " << zivoty << "/" << maxzivoty <<endl;
             cout << "Mana: 3/3\n";
             cout << "Utok: 4\n";
             cout << "Schopnosti:\n";
@@ -24,8 +24,8 @@ void vypisClassu(int cislo) {
             break;
         case 3:
             cout << "Class: Mag\n";
-            cout << "Zivoty: 3/3\n";
-            cout << "Mana: 7/7\n";
+            cout << "Zivoty: " << zivoty << "/" << maxzivoty <<endl;
+            cout << "Mana: 10/10\n";
             cout << "Utok: 2\n";
             cout << "Schopnosti:\n";
             cout << "- Koule: 5 poskozeni (2 many)\n";
@@ -37,7 +37,7 @@ void vypisClassu(int cislo) {
     }
 }
 
-void vesnice(int zivoty, int maxzivoty, int mana, int maxmana, int utok, int goldy = 20) {
+void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, int& goldy) {
     cout << "\n--- Vitej ve vesnici! ---\n";
     cout << "Ze zacatku mas 20 goldu.\n";
 
@@ -108,16 +108,129 @@ void vesnice(int zivoty, int maxzivoty, int mana, int maxmana, int utok, int gol
     }
 }
 
+void fight(string classa, int& zivoty, int& mana, int utok, int& goldy) {
+    int bossHP = 20;
+    int bossUtok = 3;
+
+    cout << "\n--- Souboj s malym bossem zacina! ---\n";
+    while (bossHP > 0 && zivoty > 0) {
+        cout << "\nTvoje HP: " << zivoty << " | Mana: " << mana << endl;
+        cout << "Boss HP: " << bossHP << endl;
+
+        if (classa == "Fighter") {
+            cout << "Vyber akci:\n";
+            cout << "1 - Uder (za " << utok << " poskozeni)\n";
+            cout << "2 - Uder svetlem (1 vsem, stoji 2 many)\n";
+            cout << "3 - Oziveni (+1 zivot, stoji 1 manu)\n";
+        } else if (classa == "Marksman") {
+            cout << "Vyber akci:\n";
+            cout << "1 - Strela (za 4 poskozeni)\n";
+            cout << "2 - Vypad (dvojity utok, stoji 1 manu)\n";
+        } else if (classa == "Mag") {
+            cout << "Vyber akci:\n";
+            cout << "1 - Koule (5 poskozeni, stoji 2 many)\n";
+            cout << "2 - Ohen (vsem poskozeni, stoji 3 many)\n";
+            cout << "3 - Stit (snižuje poskozeni, stoji 1 manu)\n";
+        }
+
+        int volba;
+        cin >> volba;
+
+        switch (volba) {
+            case 1:
+                if (classa == "Fighter") {
+                    bossHP -= utok;
+                    cout << "Uderil jsi bosse za " << utok << " poskozeni.\n";
+                } else if (classa == "Marksman") {
+                    bossHP -= 4;
+                    cout << "Strelil jsi bosse za 4 poskozeni.\n";
+                } else if (classa == "Mag") {
+                    if (mana >= 2) {
+                        bossHP -= 5;
+                        mana -= 2;
+                        cout << "Pouzil jsi kouli, boss ztratil 5 HP.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                }
+                break;
+            case 2:
+                if (classa == "Fighter") {
+                    if (mana >= 2) {
+                        bossHP -= 1;
+                        mana -= 2;
+                        cout << "Pouzil jsi uder svetlem, boss ztratil 1 HP.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                } else if (classa == "Marksman") {
+                    if (mana >= 1) {
+                        bossHP -= 8;
+                        mana -= 1;
+                        cout << "Pouzil jsi vypad, boss ztratil 8 HP.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                } else if (classa == "Mag") {
+                    if (mana >= 3) {
+                        bossHP -= 6;
+                        mana -= 3;
+                        cout << "Pouzil jsi ohen, boss ztratil 6 HP.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                }
+                break;
+            case 3:
+                if (classa == "Fighter") {
+                    if (mana >= 1) {
+                        zivoty += 1;
+                        mana -= 1;
+                        cout << "Vylecil jsi se o 1 zivot.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                } else if (classa == "Mag") {
+                    if (mana >= 1) {
+                        bossUtok = max(1, bossUtok - 1);
+                        mana -= 1;
+                        cout << "Pouzil jsi stit, snizil jsi poskozeni bosse.\n";
+                    } else {
+                        cout << "Nemas dost many!\n";
+                    }
+                }
+                break;
+            default:
+                cout << "Neplatna volba.\n";
+                continue;
+        }
+
+        if (bossHP > 0) {
+            zivoty -= bossUtok;
+            cout << "Boss na tebe utoci za " << bossUtok << " poskozeni!\n";
+        }
+    }
+
+    if (zivoty > 0) {
+        cout << "\nVyhral jsi nad bossem!\n";
+    } else {
+        cout << "\nByl jsi porazen bossem...\n";
+    }
+    goldy += 20;
+cout << "\nZiskal jsi 20 zlatych za vyhru nad minibossem!" << endl;
+}
+
 void menu() {
     cout << "\nVyber si classu:\n";
-    cout << "1 - Paladin\n";
-    cout << "2 - Lovec\n";
+    cout << "1 - Fighter\n";
+    cout << "2 - Marksman\n";
     cout << "3 - Mag\n";
     cout << "Zadej cislo classy: ";
 }
 
 int main() {
     int vyber = 0;
+    int goldy = 20;
     char potvrzeni = 'n';
     string jmeno;
 
@@ -125,13 +238,31 @@ int main() {
     cin >> jmeno;
 
     int zivoty = 0, maxzivoty = 0, mana = 0, maxmana = 0, utok = 0;
+    string classa;
 
     while (potvrzeni != 'y') {
         menu();
         cin >> vyber;
 
         if (vyber >= 1 && vyber <= 3) {
-            vypisClassu(vyber);
+            if (vyber == 1) {
+                zivoty = maxzivoty = 30;
+                mana = maxmana = 5;
+                utok = 3;
+                classa = "Fighter";
+            } else if (vyber == 2) {
+                zivoty = maxzivoty = 25;
+                mana = maxmana = 3;
+                utok = 4;
+                classa = "Marksman";
+            } else if (vyber == 3) {
+                zivoty = maxzivoty = 25;
+                mana = maxmana = 10;
+                utok = 2;
+                classa = "Mag";
+            }
+
+            vypisClassu(vyber, zivoty, maxzivoty);
             cout << "\nChces tuto classu? (y/n): ";
             cin >> potvrzeni;
         } else {
@@ -139,14 +270,15 @@ int main() {
         }
     }
 
-    switch (vyber) {
-        case 1: zivoty = maxzivoty = 5; mana = maxmana = 5; utok = 3; break;
-        case 2: zivoty = maxzivoty = 4; mana = maxmana = 3; utok = 4; break;
-        case 3: zivoty = maxzivoty = 3; mana = maxmana = 7; utok = 2; break;
-    }
-
     cout << "\n" << jmeno << ", classa uspesne vybrana!\n";
-    vesnice(zivoty, maxzivoty, mana, maxmana, utok);
+    vesnice(zivoty, maxzivoty, mana, maxmana, utok, goldy);
+    fight(classa, zivoty, mana, utok, goldy);
+    cout << "\n==============================" << endl;
+    cout << " Souboj skoncil! Tvuj stav:" << endl;
+    cout << " Zivoty: " << zivoty << "/" << maxzivoty << endl;
+    cout << " Mana:   " << mana << "/" << maxmana << endl;
+    cout << " Goldy: " << goldy <<endl;
+    cout << "==============================" << endl;
 
     return 0;
 }
