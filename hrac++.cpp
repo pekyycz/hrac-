@@ -241,6 +241,131 @@ void menu() {
     cout << "Zadej cislo classy: ";
 }
 
+void prochazkaLesem() {
+    cout << "Vydavas se na cestu lesem..." <<endl;
+    cout << endl;
+    cout << "Je ticho. Jen sem tam zaslechnes sovu nebo prasknuti vetve..."<<endl;
+    cout << endl;
+    cout << "Z NICOTY NA TEBE VYSKOCI OBROVSKY BOSS!"<<endl;
+    cout << endl;
+}
+
+void mensiBossFight(string classa, int& zivoty, int& mana, int utok, int& goldy) {
+    int bossHP = 28;
+    int bossUtok = 4;
+
+    cout << "\n--- SOUBOJ S BOSSEM ZACINA! ---\n";
+    while (bossHP > 0 && zivoty > 0) {
+        cout << "Tvoje HP: " << zivoty << " | Mana: " << mana << endl;
+        cout << "Boss HP: " << bossHP << endl;
+
+        if (classa == "Fighter") {
+            cout << "1 - Uder (" << utok << " dmg)\n";
+            cout << "2 - Uder svetlem (1 dmg vsem, 2 many)\n";
+            cout << "3 - Oziveni (+1 HP, 1 mana)\n";
+        } else if (classa == "Marksman") {
+            cout << "1 - Strela (4 dmg)\n";
+            cout << "2 - Vypad (8 dmg, 1 mana)\n";
+            cout << "3 - Leceni (+1 HP, 1 mana)\n";
+        } else if (classa == "Mag") {
+            cout << "1 - Koule (5 dmg, 2 many)\n";
+            cout << "2 - Ohen (6 dmg, 3 many)\n";
+            cout << "3 - Stit (snižuje dmg bossa, 1 mana)\n";
+            cout << "4 - Leceni (+1 HP, 1 mana)\n";
+        }
+
+        int volba;
+        cin >> volba;
+
+        switch (volba) {
+            case 1:
+                if (classa == "Fighter") {
+                    bossHP -= utok;
+                    cout << "Uderil jsi bosse za " << utok << " poskozeni.\n";
+                } else if (classa == "Marksman") {
+                    bossHP -= 4;
+                    cout << "Strelil jsi bosse za 4 poskozeni.\n";
+                } else if (classa == "Mag") {
+                    if (mana >= 2) {
+                        bossHP -= 5;
+                        mana -= 2;
+                        cout << "Koule zasahla, 5 dmg.\n";
+                    } else cout << "Nemas dost many!\n";
+                }
+                break;
+
+            case 2:
+                if (classa == "Fighter") {
+                    if (mana >= 2) {
+                        bossHP -= 1;
+                        mana -= 2;
+                        cout << "Uder svetlem zasahl za 1 dmg.\n";
+                    } else cout << "Nemas dost many!\n";
+                } else if (classa == "Marksman") {
+                    if (mana >= 1) {
+                        bossHP -= 8;
+                        mana -= 1;
+                        cout << "Pouzil jsi vypad za 8 dmg.\n";
+                    } else cout << "Nemas dost many!\n";
+                } else if (classa == "Mag") {
+                    if (mana >= 3) {
+                        bossHP -= 6;
+                        mana -= 3;
+                        cout << "Ohen zasahl za 6 dmg.\n";
+                    } else cout << "Nemas dost many!\n";
+                }
+                break;
+
+            case 3:
+                if (classa == "Fighter" || classa == "Marksman") {
+                    if (mana >= 1) {
+                        zivoty += 1;
+                        mana -= 1;
+                        cout << "Vylecil jsi se o 1 HP.\n";
+                    } else cout << "Nemas dost many!\n";
+                } else if (classa == "Mag") {
+                    if (mana >= 1) {
+                        bossUtok = max(1, bossUtok - 1);
+                        mana -= 1;
+                        cout << "Stit aktivni, boss bude delat mensi dmg.\n";
+                    } else cout << "Nemas dost many!\n";
+                }
+                break;
+
+            case 4:
+                if (classa == "Mag") {
+                    if (mana >= 1) {
+                        zivoty += 1;
+                        mana -= 1;
+                        cout << "Vylecil jsi se o 1 HP.\n";
+                    } else cout << "Nemas dost many!\n";
+                } else {
+                    cout << "Neplatna volba.\n";
+                }
+                break;
+
+            default:
+                cout << "Neplatna volba.\n";
+                continue;
+        }
+
+        if (bossHP > 0) {
+            zivoty -= bossUtok;
+            cout << "Boss na tebe utoci za " << bossUtok << " poskozeni!\n";
+        }
+    }
+
+    if (zivoty > 0) {
+        cout << "\nPorazil jsi velkeho bosse! Vyborne!\n";
+        goldy += 30;
+        cout << "Ziskal jsi 30 zlatych!\n";
+    } else {
+        cout << "\nByl jsi porazen. Zkus to znovu lepe pripravene.\n";
+    }
+}
+
+
+
 void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, int& goldy) {
     int volba;
     while (true) {
@@ -303,6 +428,7 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
                 break;
             case 5:
                 cout << "Opustil jsi vesnici.\n";
+                cout << endl;
                 return;
             default:
                 cout << "Neplatna volba.\n";
@@ -358,6 +484,9 @@ prvniVesnice(goldy);
 vesnice(zivoty, maxzivoty, mana, maxmana, utok, goldy);
 fight(classa, zivoty, mana, utok, goldy);
 druhaVesnice(zivoty, maxzivoty, mana, maxmana, utok, goldy);
+prochazkaLesem ();
+mensiBossFight (classa, zivoty, mana, utok, goldy);
+
 
 return 0;
 }
