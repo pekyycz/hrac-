@@ -67,7 +67,8 @@ void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, in
         cout << "2 - Doplnit +1 manu (4 goldy)\n";
         cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
         cout << "4 - Zvysit utok o 1 (14 goldu)\n";
-        cout << "5 - Odejit\n";
+        cout << "5 - Doplnit vsechny zivoty (20 goldu)\n";
+        cout << "6 - Odejit\n";
         cout << "Tvoje volba: ";
         cout <<endl;
         cin >> volba;
@@ -113,6 +114,17 @@ void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, in
                 }
                 break;
             case 5:
+                if (zivoty >= maxzivoty) {
+                    cout << "Mas uz plne zivoty.\n";
+                } else if (goldy < 20) {
+                    cout << "Nemas dostatek goldu.\n";
+                } else {
+                    zivoty = maxzivoty;
+                    goldy -= 20;
+                    cout << "Doplnil sis vsechny zivoty.\n";
+                }
+                break;
+            case 6:
                 cout << "Opustil jsi vesnici.\n";
                 return;
             default:
@@ -381,6 +393,7 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
         cout << "2 - Doplnit +1 manu (4 goldy)\n";
         cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
         cout << "4 - Zvysit utok o 1 (14 goldu)\n";
+        cout << "5 - Doplnit vsechny zivoty (20 goldu)" << endl;
         cout << "5 - Odejit\n";
         cout << "Tvoje volba: ";
         cin >> volba;
@@ -427,6 +440,17 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
                 }
                 break;
             case 5:
+                if (zivoty >= maxzivoty) {
+                    cout << "Mas uz plne zivoty.\n";
+                } else if (goldy < 20) {
+                    cout << "Nemas dostatek goldu.\n";
+                } else {
+                    zivoty = maxzivoty;
+                    goldy -= 20;
+                    cout << "Doplnil sis vsechny zivoty.\n";
+                }
+                break;
+            case 6:
                 cout << "Opustil jsi vesnici.\n";
                 cout << endl;
                 return;
