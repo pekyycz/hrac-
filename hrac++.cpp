@@ -63,10 +63,10 @@ void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, in
         cout << "Goldy: " << goldy << endl;
 
         cout << "\nVyber z moznosti:\n";
-        cout << "1 - Doplnit +1 zivot (3 goldy)\n";
-        cout << "2 - Doplnit +1 manu (2 goldy)\n";
-        cout << "3 - Zvysit max zivoty o 1 (5 goldu)\n";
-        cout << "4 - Zvysit utok o 1 (7 goldu)\n";
+        cout << "1 - Doplnit +1 zivot (5 goldu)\n";
+        cout << "2 - Doplnit +1 manu (4 goldy)\n";
+        cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
+        cout << "4 - Zvysit utok o 1 (14 goldu)\n";
         cout << "5 - Odejit\n";
         cout << "Tvoje volba: ";
         cout <<endl;
@@ -75,40 +75,40 @@ void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, in
             case 1:
                 if (zivoty >= maxzivoty) {
                     cout << "Mas plne zivoty.\n";
-                } else if (goldy < 3) {
+                } else if (goldy < 5) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     zivoty++;
-                    goldy -= 3;
+                    goldy -= 5;
                     cout << "Doplnil sis +1 zivot.\n";
                 }
                 break;
             case 2:
                 if (mana >= maxmana) {
                     cout << "Mas plnou manu.\n";
-                } else if (goldy < 2) {
+                } else if (goldy < 4) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     mana++;
-                    goldy -= 2;
+                    goldy -= 4;
                     cout << "Doplnil sis +1 many.\n";
                 }
                 break;
             case 3:
-                if (goldy < 5) {
+                if (goldy < 10) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     maxzivoty++;
-                    goldy -= 5;
+                    goldy -= 10;
                     cout << "Zvysil sis max zivoty o 1.\n";
                 }
                 break;
             case 4:
-                if (goldy < 7) {
+                if (goldy < 14) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     utok++;
-                    goldy -= 7;
+                    goldy -= 14;
                     cout << "Zvysil sis utok o 1.\n";
                 }
                 break;
@@ -377,10 +377,10 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
         cout << "Goldy: " << goldy << endl;
 
         cout << "\nVyber z moznosti:\n";
-        cout << "1 - Doplnit +1 zivot (3 goldy)\n";
-        cout << "2 - Doplnit +1 manu (2 goldy)\n";
-        cout << "3 - Zvysit max zivoty o 1 (5 goldu)\n";
-        cout << "4 - Zvysit utok o 1 (7 goldu)\n";
+        cout << "1 - Doplnit +1 zivot (5 goldy)\n";
+        cout << "2 - Doplnit +1 manu (4 goldy)\n";
+        cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
+        cout << "4 - Zvysit utok o 1 (14 goldu)\n";
         cout << "5 - Odejit\n";
         cout << "Tvoje volba: ";
         cin >> volba;
@@ -389,40 +389,40 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
             case 1:
                 if (zivoty >= maxzivoty) {
                     cout << "Mas plne zivoty.\n";
-                } else if (goldy < 3) {
+                } else if (goldy < 5) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     zivoty++;
-                    goldy -= 3;
+                    goldy -= 5;
                     cout << "Doplnil sis +1 zivot.\n";
                 }
                 break;
             case 2:
                 if (mana >= maxmana) {
                     cout << "Mas plnou manu.\n";
-                } else if (goldy < 2) {
+                } else if (goldy < 4) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     mana++;
-                    goldy -= 2;
+                    goldy -= 4;
                     cout << "Doplnil sis +1 many.\n";
                 }
                 break;
             case 3:
-                if (goldy < 5) {
+                if (goldy < 10) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     maxzivoty++;
-                    goldy -= 5;
+                    goldy -= 10;
                     cout << "Zvysil sis max zivoty o 1.\n";
                 }
                 break;
             case 4:
-                if (goldy < 7) {
+                if (goldy < 14) {
                     cout << "Nemas dostatek goldu.\n";
                 } else {
                     utok++;
-                    goldy -= 7;
+                    goldy -= 14;
                     cout << "Zvysil sis utok o 1.\n";
                 }
                 break;
