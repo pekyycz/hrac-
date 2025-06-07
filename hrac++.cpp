@@ -122,10 +122,10 @@ void vesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& utok, in
                   zivoty = maxzivoty;
                   goldy -= 20;
                   cout << "Doplnil sis vsechny zivoty.\n";
-    }
-    break;
+               }
+               break;
 
-            case 5:
+            case 6:
                 cout << "Opustil jsi vesnici.\n";
                 return;
             default:
@@ -394,7 +394,7 @@ void tretiVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
         cout << "2 - Doplnit +1 manu (4 goldy)\n";
         cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
         cout << "4 - Zvysit utok o 1 (14 goldu)\n";
-        cout << "6 - Doplnit vsechny zivoty" << endl;
+        cout << "6 - Doplnit vsechny zivoty (20 goldu)" << endl;
         cout << "5 - Odejit\n";
         cout << "Tvoje volba: ";
         cin >> volba;
@@ -478,7 +478,7 @@ void druhaVesnice(int& zivoty, int& maxzivoty, int& mana, int& maxmana, int& uto
         cout << "2 - Doplnit +1 manu (4 goldy)\n";
         cout << "3 - Zvysit max zivoty o 1 (10 goldu)\n";
         cout << "4 - Zvysit utok o 1 (14 goldu)\n";
-        cout << "5 - Doplnit vsechny zivoty (20 goldu)" << endl
+        cout << "5 - Doplnit vsechny zivoty (20 goldu)" << endl;
         cout << "6 - Odejit\n";
         cout << "Tvoje volba: ";
         cin >> volba;
